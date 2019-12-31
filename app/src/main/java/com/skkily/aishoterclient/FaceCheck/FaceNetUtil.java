@@ -100,7 +100,7 @@ public class FaceNetUtil {
                 byte[] bacd = post(url, map);
                 String request = new String(bacd);
                 FaceSignUpInfo faceSignUpInfo=gson.fromJson(request,FaceSignUpInfo.class);
-                if(faceSignUpInfo.getResults().get(0).getConfidence()>90)
+                if(faceSignUpInfo.getResults().get(0).getConfidence()>75)
                     return faceSignUpInfo.getResults().get(0).getFace_token();
                 else return "false";
             }catch (JsonSyntaxException e){

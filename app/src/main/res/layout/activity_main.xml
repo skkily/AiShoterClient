@@ -1,41 +1,123 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center"
+    android:background="#EFEFEF"
     tools:context=".MainActivity">
 
-    <Button
-        android:id="@+id/btn_faceCheck"
+    <ImageButton
+        android:id="@+id/facelogin"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:background="#00000000"
+        android:scaleType="centerInside"
+        android:src="@drawable/face" />
+    <TextView
+        android:id="@+id/text"
+        android:layout_below="@+id/facelogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="人脸识别"
-        android:onClick="faceUtil"
-        />
+        android:layout_centerHorizontal="true"
+        android:text="人脸识别登录"
+        android:textSize="20dp"/>
+    <EditText
+        android:id="@+id/editText1"
+        android:layout_marginTop="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/text"
+        android:background="@drawable/edit"
+        android:gravity="center"
+        android:hint="用户名"
+        android:inputType="textPersonName"
 
+        android:textColor="#6A6A6C"
+        android:textColorHint="#ECEDDD">
+    </EditText>
+    <EditText
+        android:id="@+id/editText2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editText1"
+        android:background="@drawable/edit"
+        android:gravity="center"
+        android:hint="密码"
+        android:inputType="textPassword"
+        android:textColor="#6A6A6C"
+        android:textColorHint="#ECEDDD">
+    </EditText>
     <Button
+        android:id="@+id/loginbut"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_below="@id/editText2"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/loginbut"
+        android:gravity="center"
+        android:text="登录"
+        android:textColor="#F9FAFB"
+        android:textSize="20dp"/>
+
+    <TextView
+        android:id="@+id/text2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/loginbut"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="20dp"
+        android:gravity="center"
+        android:text="——————   其他登录方式   ——————"
+        android:textSize="15sp" />
+    <Button
+        android:id="@+id/qqloign"
+        android:layout_below="@+id/text2"
+        android:layout_width="150dp"
+        android:layout_height="40dp"
+        android:text="QQ快捷登录"
+        android:textColor="#F9FAFB"
+        android:textSize="15dp"
+        android:background="@drawable/qqloginbut"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"/>
+    <Button
+        android:id="@+id/wexinlogin"
+        android:layout_below="@+id/text2"
+        android:layout_alignRight="@+id/loginbut"
+        android:layout_width="150dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="20dp"
+        android:text="微信快捷登录"
+        android:textColor="#F9FAFB"
+        android:textSize="15dp"
+        android:background="@drawable/wechatloginbut"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:layout_marginLeft="66dp"/>
+    <Button
+        android:id="@+id/zhuce"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/btn_faceSignIn"
-        android:text="人脸注册"
-        android:onClick="faceUtil"
-        />
+        android:layout_below="@+id/loginbut"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="270dp"
+        android:background="#00000000"
+        android:text="账号注册>>"/>
 
-    <Button
+    <TextView
+        android:id="@+id/text3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/btn_faceSignUp"
-        android:text="人脸登录"
-        android:onClick="faceUtil"/>
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/btn_faceCreate"
-        android:text="人脸库创建"
-        android:onClick="faceUtil"/>
-
-</LinearLayout>
+        android:layout_below="@+id/zhuce"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:text="登录注册即代表同意用户协议、隐私条款" />
+</RelativeLayout>

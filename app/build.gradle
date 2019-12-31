@@ -26,7 +26,7 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     testImplementation 'junit:junit:4.12'
@@ -35,4 +35,6 @@ dependencies {
     implementation(name: 'MGLicenseManagerSDK-0.3.1', ext: 'aar')
     implementation(name: 'MGFaceppSDK-0.5.2', ext: 'aar')
     implementation 'com.google.code.gson:gson:2.8.6'
+    implementation files('libs/open_sdk_r2973327_lite.jar')
+    implementation 'com.github.kongqw:AndroidRocker:1.0.1'
 }
