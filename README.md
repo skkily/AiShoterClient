@@ -1,4 +1,4 @@
-# Face++ 的登录和注册实例
+# AI摄影师的关于Face++人脸登录部分的登录和注册实例
 
 > 注意需要在util里的Util.class中填写自己的key和secret
 
