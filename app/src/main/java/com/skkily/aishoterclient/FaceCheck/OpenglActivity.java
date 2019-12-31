@@ -28,16 +28,16 @@ import android.os.HandlerThread;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.skkily.aishoterclient.mediacodec.MediaHelper;
-import com.skkily.aishoterclient.util.CameraMatrix;
-import com.skkily.aishoterclient.util.ConUtil;
+import com.skkily.aishoterclient.FaceCheck.mediacodec.MediaHelper;
+import com.skkily.aishoterclient.FaceCheck.util.CameraMatrix;
+import com.skkily.aishoterclient.FaceCheck.util.ConUtil;
 
-import com.skkily.aishoterclient.util.ICamera;
+import com.skkily.aishoterclient.FaceCheck.util.ICamera;
 
-import com.skkily.aishoterclient.util.OpenGLUtil;
-import com.skkily.aishoterclient.util.PointsMatrix;
-import com.skkily.aishoterclient.util.Screen;
-import com.skkily.aishoterclient.util.SensorEventUtil;
+import com.skkily.aishoterclient.FaceCheck.util.OpenGLUtil;
+import com.skkily.aishoterclient.FaceCheck.util.PointsMatrix;
+import com.skkily.aishoterclient.FaceCheck.util.Screen;
+import com.skkily.aishoterclient.FaceCheck.util.SensorEventUtil;
 import com.megvii.facepp.sdk.Facepp;
 
 import java.io.FileNotFoundException;

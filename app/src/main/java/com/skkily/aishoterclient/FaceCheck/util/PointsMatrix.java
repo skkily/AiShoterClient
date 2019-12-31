@@ -1,4 +1,4 @@
-package com.skkily.aishoterclient.util;
+package com.skkily.aishoterclient.FaceCheck.util;
 
 import android.graphics.Rect;
 import android.opengl.GLES20;
@@ -220,7 +220,7 @@ public class PointsMatrix {
 
 		synchronized (this){
 			if (faceRects != null && faceRects.size()>0){
-				GLES20.glLineWidth(4.0f);
+				GLES20.glLineWidth(50.0f);
 				GLES20.glUniform4f(mColorHandle, 1.0f, 0.0f, 0.0f, 1.0f);
 
 				for(int i = 0; i < faceRects.size(); i++){

@@ -3,7 +3,10 @@ package com.skkily.aishoterclient.FaceCheck;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
-import com.skkily.aishoterclient.util.Util;
+import com.skkily.aishoterclient.FaceCheck.faceInfo.FaceCheckInfo;
+import com.skkily.aishoterclient.FaceCheck.faceInfo.FaceSignInInfo;
+import com.skkily.aishoterclient.FaceCheck.faceInfo.FaceSignUpInfo;
+import com.skkily.aishoterclient.FaceCheck.util.Util;
 
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
@@ -51,7 +54,6 @@ public class FaceNetUtil {
             String str="false";
             if(!token.equals("false")) {
                 str = token;
-                token="false";
             }
 
             String url = "https://api-cn.faceplusplus.com/facepp/v3/faceset/addface";
@@ -68,13 +70,17 @@ public class FaceNetUtil {
                     return token;
             }
             catch (JsonSyntaxException e){
+                e.printStackTrace();
+                token="false";
                 return "false";
+
             }
             catch (Exception e) {
+                token="false";
                 e.printStackTrace();
             }
         }
-
+        token="false";
         return "false";
     }
     //登录人脸

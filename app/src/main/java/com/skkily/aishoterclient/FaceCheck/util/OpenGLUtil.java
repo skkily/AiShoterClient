@@ -1,4 +1,4 @@
-package com.skkily.aishoterclient.util;
+package com.skkily.aishoterclient.FaceCheck.util;
 
 import android.app.ActivityManager;
 import android.content.Context;

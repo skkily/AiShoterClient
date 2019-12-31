@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.skkily.aishoterclient.FaceCheck.FaceNetUtil;
 import com.skkily.aishoterclient.FaceCheck.LoadingActivity;
 
 public class MainActivity extends AppCompatActivity {
@@ -38,7 +39,9 @@ public class MainActivity extends AppCompatActivity {
                 intent.putExtra("type","3");startActivity(intent);
                 break;
             case R.id.btn_faceCreate:
-                Toast.makeText(this,"创建完成",Toast.LENGTH_LONG).show();
+                //返回json信息，具体内容自己在官方api表里面查
+                FaceNetUtil faceNetUtil=new FaceNetUtil();
+                Toast.makeText(this,faceNetUtil.faceCreate(),Toast.LENGTH_LONG).show();
                 break;
         }
 

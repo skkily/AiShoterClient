@@ -3,7 +3,7 @@
 > 注意需要在util里的Util.class中填写自己的key和secret
 
 ```java
-package com.skkily.aishoterclient.util;
+package com.skkily.aishoterclient.FaceCheck.util;
 
 public class Util {
 

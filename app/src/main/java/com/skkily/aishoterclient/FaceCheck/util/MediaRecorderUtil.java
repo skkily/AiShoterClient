@@ -1,4 +1,4 @@
-package com.skkily.aishoterclient.util;
+package com.skkily.aishoterclient.FaceCheck.util;
 
 import android.hardware.Camera;
 import android.media.CamcorderProfile;

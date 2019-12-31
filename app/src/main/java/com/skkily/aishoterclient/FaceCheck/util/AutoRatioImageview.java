@@ -1,5 +1,6 @@
-package com.skkily.aishoterclient.util;
+package com.skkily.aishoterclient.FaceCheck.util;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
@@ -8,6 +9,7 @@ import android.widget.ImageView;
 import com.skkily.aishoterclient.R;
 
 
+@SuppressLint("AppCompatCustomView")
 public class AutoRatioImageview extends ImageView {
     private float mRatio = -1;
     private int mPrefer = 0;

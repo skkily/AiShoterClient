@@ -1,4 +1,4 @@
-package com.skkily.aishoterclient.FaceCheck;
+package com.skkily.aishoterclient.FaceCheck.faceInfo;
 
 import com.google.gson.annotations.SerializedName;
 

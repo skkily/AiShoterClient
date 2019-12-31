@@ -1,4 +1,4 @@
-package com.skkily.aishoterclient.mediacodec;
+package com.skkily.aishoterclient.FaceCheck.mediacodec;
 
 
 import android.opengl.GLES11Ext;

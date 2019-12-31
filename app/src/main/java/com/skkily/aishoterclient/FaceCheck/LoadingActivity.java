@@ -20,9 +20,9 @@ import android.widget.TextView;
 import com.megvii.facepp.sdk.Facepp;
 import com.megvii.licensemanager.sdk.LicenseManager;
 import com.skkily.aishoterclient.R;
-import com.skkily.aishoterclient.util.ConUtil;
-import com.skkily.aishoterclient.util.SharedUtil;
-import com.skkily.aishoterclient.util.Util;
+import com.skkily.aishoterclient.FaceCheck.util.ConUtil;
+import com.skkily.aishoterclient.FaceCheck.util.SharedUtil;
+import com.skkily.aishoterclient.FaceCheck.util.Util;
 
 import java.util.Locale;
 

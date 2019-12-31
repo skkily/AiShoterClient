@@ -1,4 +1,4 @@
-package com.skkily.aishoterclient.FaceCheck;
+package com.skkily.aishoterclient.FaceCheck.faceInfo;
 
 import java.util.List;
 
