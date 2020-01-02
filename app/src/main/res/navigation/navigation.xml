@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@+id/mineFragment">
+
+    <fragment
+        android:id="@+id/selectFragment"
+        android:name="com.skkily.aishoterclient.AiList.SelectFragment"
+        android:label="选择"
+        tools:layout="@layout/select_fragment" />
+    <fragment
+        android:id="@+id/mineFragment"
+        android:name="com.skkily.aishoterclient.AiList.MineFragment"
+        android:label="我"
+        tools:layout="@layout/mine_fragment" />
+</navigation>

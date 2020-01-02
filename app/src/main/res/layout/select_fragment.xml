@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AiList.SelectFragment">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/select_image1"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:background="@drawable/robot"
+            android:layout_centerHorizontal="true"/>
+        <TextView
+            android:id="@+id/select_text1"
+            android:layout_below="@id/select_image1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1号机器"
+            android:textColor="@color/Dark"
+            android:textSize="20dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="40dp"/>
+
+        <View
+            android:id="@+id/select_view"
+            android:layout_width="wrap_content"
+            android:layout_height="1px"
+            android:layout_below="@id/select_text1"
+            android:background="@color/Dark"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"/>
+
+        <ImageView
+            android:id="@+id/select_image2"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:background="@drawable/robot"
+            android:layout_below="@id/select_view"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="40dp"/>
+        <TextView
+            android:id="@+id/select_text2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2号机器"
+            android:textColor="@color/Dark"
+            android:textSize="20dp"
+            android:layout_below="@id/select_image2"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"/>
+
+    </RelativeLayout>
+
+
+
+</FrameLayout>

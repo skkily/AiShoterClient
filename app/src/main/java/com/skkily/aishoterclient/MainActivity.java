@@ -89,8 +89,16 @@ public class MainActivity extends AppCompatActivity implements QQLoginManager.QQ
 
         qqLoginManager = new QQLoginManager("101842080", this);
 
-        
 
+
+        Button button=findViewById(R.id.wexinlogin);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(MainActivity.this,AiListActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
 

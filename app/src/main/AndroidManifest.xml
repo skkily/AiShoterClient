@@ -22,7 +22,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Control.Control"></activity>
+        <activity android:name=".AiList.AccordActivity"></activity>
+        <activity android:name=".AiList.VedioActivity" />
+        <activity android:name=".AiList.PhotoActivity" />
+        <activity android:name=".AiList.UserInformationActivity" />
+        <activity android:name=".AiListActivity" />
+        <activity android:name=".Control.Control" />
         <activity android:name=".LoginUtil.Register" />
         <activity
             android:name="com.tencent.tauth.AuthActivity"

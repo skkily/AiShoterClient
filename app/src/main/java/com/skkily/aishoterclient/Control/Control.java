@@ -2,6 +2,7 @@ package com.skkily.aishoterclient.Control;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.skkily.aishoterclient.R;
@@ -140,6 +141,10 @@ public class Control extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_control);
+
+//        //
+//        Intent intent=getIntent();
+//        String Car=intent.getStringExtra("Car");
 
         rockerView = findViewById(R.id.rockerView);
         textView=findViewById(R.id.text);

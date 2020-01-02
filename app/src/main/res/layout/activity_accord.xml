@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AiList.AccordActivity"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/accord_back"
+            android:layout_width="80dp"
+            android:layout_height="45dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="8dp"
+            android:background="#00000000"
+            android:text="返回"
+            android:textColor="@color/Dark"
+            android:textSize="22dp" />
+
+        <TextView
+            android:id="@+id/accord"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@drawable/commom_top"
+            android:gravity="center"
+            android:paddingTop="0dp"
+            android:text="关于"
+            android:textColor="@color/Dark"
+            android:textSize="28dp" />
+
+    </RelativeLayout>
+    //可滚动控件
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp">
+        <TextView
+            android:id="@+id/accord_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="vertical"
+            android:textSize="20dp"
+            android:paddingTop="20dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"/>
+    </ScrollView>
+
+
+</LinearLayout>
