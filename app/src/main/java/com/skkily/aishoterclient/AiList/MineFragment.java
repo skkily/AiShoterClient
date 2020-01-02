@@ -6,6 +6,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -53,6 +54,11 @@ public class MineFragment extends Fragment {
         listView.setAdapter(adapter);
         initPersonal();
         user_ID = view.findViewById(R.id.user_ID);
+
+        SharedPreferences pref=getActivity().getSharedPreferences("User",Context.MODE_PRIVATE);
+        user_ID.setText(pref.getString("name",""));
+        //String s=pref.getString("name","");
+
         user_ID.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

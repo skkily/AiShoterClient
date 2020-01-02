@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -21,7 +22,9 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.skkily.aishoterclient.Control.Control;
+import com.skkily.aishoterclient.FaceCheck.FaceNetUtil;
 import com.skkily.aishoterclient.FaceCheck.LoadingActivity;
+import com.skkily.aishoterclient.FaceCheck.OpenglActivity;
 import com.skkily.aishoterclient.LoginUtil.QQLoginManager;
 import com.skkily.aishoterclient.LoginUtil.Register;
 import com.skkily.aishoterclient.LoginUtil.User;
@@ -38,14 +41,14 @@ import java.net.Socket;
 public class MainActivity extends AppCompatActivity implements QQLoginManager.QQLoginListener{
 
     private Button loginbut,qqlogin,wexinlogin,registerbut;
-    private EditText name,password=null;
-    private String username,userpassward;
+    private EditText name=null,password=null;
+    private String userid,userpassward;
     private Handler handler=null;
     private String str=" ",openid;
     public static Context mContext;
     private QQLoginManager qqLoginManager;
     private ImageButton faceLogIn=null;
-
+    private User user=null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,6 +67,13 @@ public class MainActivity extends AppCompatActivity implements QQLoginManager.QQ
         wexinlogin=findViewById(R.id.wexinlogin);
         registerbut=findViewById(R.id.zhuce);
 
+
+        SharedPreferences pref=getSharedPreferences("User",MODE_PRIVATE);
+        if(pref!=null) {
+
+            name.setText(pref.getString("id",""));
+            password.setText(pref.getString("password",""));
+        }
 
         Drawable drawable=getResources().getDrawable(R.drawable.qq);
         drawable.setBounds(0,0,60,60);
@@ -95,8 +105,16 @@ public class MainActivity extends AppCompatActivity implements QQLoginManager.QQ
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(MainActivity.this,AiListActivity.class);
+                Intent intent=new Intent(MainActivity.this, LoadingActivity.class);
+                intent.putExtra("type","2");
                 startActivity(intent);
+//                new Thread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        FaceNetUtil.faceCreate();
+//                    }
+//                }).start();
+
             }
         });
     }
@@ -151,9 +169,9 @@ public class MainActivity extends AppCompatActivity implements QQLoginManager.QQ
             @Override
             public void run() {
                 try {
-                    Socket client = new Socket("10.133.9.49", 666);
+                    Socket client = new Socket(ServerIp.serverIp, 666);
                     PrintStream out = new PrintStream(client.getOutputStream());
-                    User user = new User(1,openid, "", "");
+                    User user = new User(1,openid, "", "","");
                     out.println(TranslateTojson(user));
                     out.close();
                     client.close();
@@ -178,16 +196,16 @@ public class MainActivity extends AppCompatActivity implements QQLoginManager.QQ
 
     private class LoginListener implements View.OnClickListener {
         public void onClick(View v) {
-            username = name.getText().toString();
+            userid = name.getText().toString();
             userpassward = password.getText().toString();
             if (input_judge()) {
                 new Thread() {
                     @Override
                     public void run() {
                         try {
-                            Socket client = new Socket("10.133.9.49", 666);
+                            Socket client = new Socket(ServerIp.serverIp, 666);
                             PrintStream out = new PrintStream(client.getOutputStream());
-                            User user = new User(0,username, userpassward, "");
+                            user = new User(0,userid, userpassward, "","");
                             out.println(TranslateTojson(user));
                             BufferedReader msg = new BufferedReader(new InputStreamReader(client.getInputStream()));
                             str = msg.readLine();
@@ -206,15 +224,27 @@ public class MainActivity extends AppCompatActivity implements QQLoginManager.QQ
                     @Override
                     public void handleMessage(Message mg) {//-1未找到用户名，0登陆成功，-2是密码错误
                         super.handleMessage(mg);
-                        if (mg.obj.toString().indexOf("0") != -1) {
-                            // Intent it = new Intent(MainActivity.this, Real_time.class);
-                            //  MainActivity.this.startActivity(it);
-                            finish();
-                        } else if (mg.obj.toString().indexOf("-1") != -1) {
-                            Toast.makeText(mContext, "未找到用户名！", Toast.LENGTH_LONG).show();
-                        } else if (mg.obj.toString().indexOf("-2") != -1) {
-                            Toast.makeText(mContext, "密码错误！", Toast.LENGTH_LONG).show();
+                        try {
+                            Gson gson=new Gson();
+                            User users=gson.fromJson(mg.obj.toString(),User.class);
+                            if (users.getCode()==0&&users!=null) {
+                                Intent it = new Intent(MainActivity.this, AiListActivity.class);
+                                it.putExtra("User",users);
+                                SharedPreferences.Editor editor=getSharedPreferences("User",MODE_PRIVATE).edit();
+                                editor.putString("password",user.getPassword());
+                                editor.apply();
+                                MainActivity.this.startActivity(it);
+                                Toast.makeText(mContext, "登陆成功！", Toast.LENGTH_LONG).show();
+                                finish();
+                            } else if (mg.obj.toString().indexOf("-1") != -1) {
+                                Toast.makeText(mContext, "未找到用户名！", Toast.LENGTH_LONG).show();
+                            } else if (mg.obj.toString().indexOf("-2") != -1) {
+                                Toast.makeText(mContext, "密码错误！", Toast.LENGTH_LONG).show();
+                            }
+                        }catch (NullPointerException e){
+                            Toast.makeText(MainActivity.this,"服务器未找到",Toast.LENGTH_LONG).show();
                         }
+
                     }
                 };
             }

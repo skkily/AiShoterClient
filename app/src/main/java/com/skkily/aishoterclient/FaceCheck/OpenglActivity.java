@@ -2,8 +2,13 @@ package com.skkily.aishoterclient.FaceCheck;
 
 
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import com.google.gson.Gson;
+import com.skkily.aishoterclient.AiListActivity;
+import com.skkily.aishoterclient.LoginUtil.User;
+import com.skkily.aishoterclient.MainActivity;
 import com.skkily.aishoterclient.R;
 
 
@@ -351,26 +356,37 @@ public class OpenglActivity extends Activity
                         });
                         break;
                     case "2":
-                        final String str2=sendSome.faceSinIn();
+                        SharedPreferences pref=getSharedPreferences("User",MODE_PRIVATE);
+
+
+                        final String str2=sendSome.faceSinIn(pref.getString("id",""));
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
                                 TextView textView=findViewById(R.id.text_log);
-                                textView.setText("人脸注册:"+str2);
+                                if(str2.equals("0"))
+                                    textView.setText("人脸注册成功");
+                                else textView.setText("人脸重复或失败");
                             }
                         });
                         System.out.println(str2);
                         break;
                     case "3":
-                        final String str3=sendSome.faceSignUp();
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                TextView textView=findViewById(R.id.text_log);
-                                textView.setText("人脸登录:"+str3);
-                            }
-                        });
-                        System.out.println(str3);
+                        final String str3=sendSome.faceSignUp(1);
+                        Gson gson=new Gson();
+                        User users=gson.fromJson(str3,User.class);
+                        if(users.getCode()==0) {
+                            SharedPreferences.Editor editor=getSharedPreferences("User",MODE_PRIVATE).edit();
+                            editor.putString("name",users.getUsername());
+                            editor.putString("id",users.getUserid());
+                            editor.putString("email",users.getEmail());
+                            editor.apply();
+
+
+                            Intent it = new Intent(OpenglActivity.this, AiListActivity.class);
+                            it.putExtra("User",users);
+                            startActivity(it);
+                        }
                         break;
                 }
             }

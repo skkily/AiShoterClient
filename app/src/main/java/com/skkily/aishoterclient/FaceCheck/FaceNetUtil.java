@@ -1,20 +1,29 @@
 package com.skkily.aishoterclient.FaceCheck;
 
 
+import android.content.SharedPreferences;
+import android.widget.Toast;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.skkily.aishoterclient.FaceCheck.faceInfo.FaceCheckInfo;
 import com.skkily.aishoterclient.FaceCheck.faceInfo.FaceSignInInfo;
 import com.skkily.aishoterclient.FaceCheck.faceInfo.FaceSignUpInfo;
 import com.skkily.aishoterclient.FaceCheck.util.Util;
+import com.skkily.aishoterclient.LoginUtil.User;
+import com.skkily.aishoterclient.ServerIp;
 
+import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.PrintStream;
 import java.net.HttpURLConnection;
+import java.net.Socket;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.HashMap;
@@ -24,10 +33,32 @@ import java.util.Random;
 
 import javax.net.ssl.SSLException;
 
+import static android.content.Context.MODE_PRIVATE;
+
 
 public class FaceNetUtil {
     private Gson gson=new Gson();
     private String token="false";
+
+    private static String sendToCarServer(String command) {
+        try{
+            Socket client = new Socket(ServerIp.serverIp, 666);
+            PrintStream out = new PrintStream(client.getOutputStream());
+            //user = new User(3,token,);
+            out.println(command);
+            //out.println("{\"code\":3,face_token:"+token+"}");
+            BufferedReader msg = new BufferedReader(new InputStreamReader(client.getInputStream()));
+            String str = msg.readLine();
+            out.close();
+            msg.close();
+            client.close();
+            return str;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "false";
+    }
+
     //检查人脸
     public String faceCheck(){
         File file = new File("/data/data/com.skkily.aishoterclient/aaa.png");
@@ -49,8 +80,10 @@ public class FaceNetUtil {
     }
 
     //注册人脸
-    public String faceSinIn(){
-        if(faceSignUp().equals("false")) {
+    public String faceSinIn(String userId){
+        String token2=faceSignUp(0);
+        //Toast.makeText(OpenglActivity.this,"token2:"+token2,Toast.LENGTH_LONG).show();
+        if(token2.equals("false")) {
             String str="false";
             if(!token.equals("false")) {
                 str = token;
@@ -60,14 +93,13 @@ public class FaceNetUtil {
             HashMap<String, String> map = new HashMap<>();
             map.put("api_key", Util.API_KEY);
             map.put("api_secret", Util.API_SECRET);
-            map.put("outer_id", "faceHub");
+            map.put("outer_id", "faceHub1");
             map.put("face_tokens", str);
             try {
-                byte[] bacd = post(url, map);
-                str = new String(bacd);
-                FaceSignInInfo faceSignInInfo=gson.fromJson(str,FaceSignInInfo.class);
-                if(faceSignInInfo!=null)
-                    return token;
+                System.out.println(post(url, map));
+                String getstr = sendToCarServer(
+                        "{\"code\":3,\"face_token\":\""+token+"\",\"userId\":\""+userId+"\"}");
+                return getstr;
             }
             catch (JsonSyntaxException e){
                 e.printStackTrace();
@@ -76,48 +108,57 @@ public class FaceNetUtil {
 
             }
             catch (Exception e) {
-                token="false";
                 e.printStackTrace();
             }
+        }else {
+            String getstr = sendToCarServer(
+                    "{\"code\":3,\"face_token\":\""+token2+"\",\"userId\":\""+userId+"\"}");
+            return getstr;
         }
         token="false";
         return "false";
     }
     //登录人脸
-    public String faceSignUp(){
+    public String faceSignUp(int type){
         String str=faceCheck();
         Gson gson=new Gson();
-        FaceCheckInfo faceInfo=gson.fromJson(str, FaceCheckInfo.class);
+        FaceCheckInfo faceInfo=gson.fromJson(str, FaceCheckInfo.class);//token1
         if(faceInfo.getFaces().get(0).getFace_token()!=null){
-            token=faceInfo.getFaces().get(0).getFace_token();
+            token=faceInfo.getFaces().get(0).getFace_token();//当前照片token，用于照片注册之用
             String url = "https://api-cn.faceplusplus.com/facepp/v3/search";
             HashMap<String, String> map = new HashMap<>();
             map.put("api_key", Util.API_KEY);
             map.put("api_secret", Util.API_SECRET);
-            map.put("outer_id","faceHub");
+            map.put("outer_id","faceHub1");
             map.put("face_token",faceInfo.getFaces().get(0).getFace_token());
             try {
                 byte[] bacd = post(url, map);
                 String request = new String(bacd);
                 FaceSignUpInfo faceSignUpInfo=gson.fromJson(request,FaceSignUpInfo.class);
-                if(faceSignUpInfo.getResults().get(0).getConfidence()>75)
-                    return faceSignUpInfo.getResults().get(0).getFace_token();
-                else return "false";
+                if(faceSignUpInfo.getResults().get(0).getConfidence()>75&&type==1){
+                    String getstr = sendToCarServer(
+                            "{\"code\":4,\"face_token\":\""+faceSignUpInfo.getResults().get(0).getFace_token()+"\"}");//send the get token2
+                    return getstr;//需要发送登录返回的正确token
+                }else if(faceSignUpInfo.getResults().get(0).getConfidence()>80) {
+                    return faceSignUpInfo.getResults().get(0).getFace_token();//token2
+                }else {
+                    return "false";
+                }
             }catch (JsonSyntaxException e){
                 return "false";
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
-        return "";
+        return "false";
     }
     //创建人脸库
-    public String faceCreate(){
+    public static String faceCreate(){
         String url = "https://api-cn.faceplusplus.com/facepp/v3/faceset/create";
         HashMap<String, String> map = new HashMap<>();
         map.put("api_key",Util.API_KEY);
         map.put("api_secret", Util.API_SECRET);
-        map.put("outer_id","faceHub");
+        map.put("outer_id","faceHub1");
         try {
             byte[] bacd = post(url, map);
             String str = new String(bacd);

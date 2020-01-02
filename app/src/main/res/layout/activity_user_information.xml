@@ -55,6 +55,7 @@
     </RelativeLayout>
 
 
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -71,7 +72,7 @@
             android:textSize="26dp" />
 
         <EditText
-            android:id="@+id/nickname_edit"
+            android:id="@+id/edit_info_nickname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -80,29 +81,7 @@
             android:textSize="18dp" />
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingTop="20dp">
 
-        <TextView
-            android:id="@+id/signname"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingLeft="10dp"
-            android:text="签名:"
-            android:textColor="@color/Dark"
-            android:textSize="26dp" />
-        <EditText
-            android:id="@+id/signname_edit"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:hint="请输入签名"
-            android:paddingLeft="20dp"
-            android:textSize="18dp" />
-    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -119,7 +98,7 @@
             android:textSize="26dp" />
 
         <EditText
-            android:id="@+id/email_edit"
+            android:id="@+id/edit_info_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -128,53 +107,31 @@
             android:textSize="18dp" />
     </LinearLayout>
 
-
-
-    <LinearLayout
+    <Button
+        android:id="@+id/btn_info_changePassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingTop="20dp">
-        <TextView
-            android:id="@+id/profession"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingLeft="10dp"
-            android:text="职业:"
-            android:textColor="@color/Dark"
-            android:textSize="26dp"/>
-        <EditText
-            android:id="@+id/profession_edit"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:hint="请输入职业"
-            android:paddingLeft="20dp"
-            android:textSize="18dp"/>
-    </LinearLayout>
+        android:layout_margin="20dp"
+        android:text="修改密码"
+        android:textSize="26dp"
+        android:background="#00000000"/>
 
-    <LinearLayout
+    <Button
+        android:id="@+id/btn_info_faceLogIn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingTop="20dp">
+        android:layout_margin="20dp"
+        android:text="人脸认证"
+        android:textSize="26dp"
+        android:background="#00000000"/>
 
-        <TextView
-            android:id="@+id/birthday"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingLeft="10dp"
-            android:text="公司:"
-            android:textColor="@color/Dark"
-            android:textSize="26dp" />
+    <Button
+        android:id="@+id/btn_info_qqLogIn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:text="qq认证"
+        android:textSize="26dp"
+        android:background="#00000000"/>
 
-        <EditText
-            android:id="@+id/birthday_edit"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:hint="请输入公司名"
-            android:paddingLeft="20dp"
-            android:textSize="18dp" />
-    </LinearLayout>
 </LinearLayout>

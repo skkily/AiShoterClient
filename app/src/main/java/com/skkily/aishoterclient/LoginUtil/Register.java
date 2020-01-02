@@ -17,7 +17,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.gson.Gson;
 import com.skkily.aishoterclient.FaceCheck.LoadingActivity;
 import com.skkily.aishoterclient.LoginUtil.User;
+import com.skkily.aishoterclient.MainActivity;
 import com.skkily.aishoterclient.R;
+import com.skkily.aishoterclient.ServerIp;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -25,7 +27,7 @@ import java.io.PrintStream;
 import java.net.Socket;
 
 public class Register extends AppCompatActivity {
-    private EditText name,passward,secondpass,email;
+    private EditText name,passward,secondpass,email,userName;
     private Button registerbut;
     private Handler handler=null;
     private Button faceLogUp=null;
@@ -37,23 +39,17 @@ public class Register extends AppCompatActivity {
         setContentView(R.layout.activity_register);
         mContext=getApplicationContext();
 
-        faceLogUp=findViewById(R.id.btn_face_signIn);
+
+        userName=findViewById(R.id.edit_userName);
         name=findViewById(R.id.inputreNmae);
         passward=findViewById(R.id.inputrePass);
         secondpass=findViewById(R.id.secondPass);
         email=findViewById(R.id.inputreEmail);
         registerbut=findViewById(R.id.registerbut);
 
-        faceLogUp.setOnClickListener(new BindFace());
         registerbut.setOnClickListener(new RebutListener());
     }
-    private class BindFace implements OnClickListener {
-        public void onClick(View v) {
-            Intent intent=new Intent(Register.this, LoadingActivity.class);
-            intent.putExtra("type","2");
-            startActivity(intent);
-        }
-    }
+
     private class RebutListener implements OnClickListener {
         public void onClick(View v) {
             if (input_judge()) {
@@ -61,9 +57,9 @@ public class Register extends AppCompatActivity {
                     @Override
                     public void run() {
                         try {
-                            Socket client = new Socket("10.133.9.49", 7654);
+                            Socket client = new Socket(ServerIp.serverIp, 666);
                             PrintStream out = new PrintStream(client.getOutputStream());
-                            User user = new User(0,name.getText().toString(), passward.getText().toString(), email.getText().toString());
+                            User user = new User(1,name.getText().toString(), passward.getText().toString(), email.getText().toString(),userName.getText().toString());
                             out.print(TranslateTojson(user));
                             BufferedReader msg = new BufferedReader(new InputStreamReader(client.getInputStream()));
                             str = msg.readLine();

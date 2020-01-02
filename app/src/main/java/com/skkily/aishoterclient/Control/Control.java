@@ -29,6 +29,7 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.kongqw.rockerlibrary.view.RockerView;
+import com.skkily.aishoterclient.ServerIp;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -68,7 +69,7 @@ public class Control extends AppCompatActivity {
             String str = " ";
             try {
                 client = new Socket();
-                client.connect(new InetSocketAddress("10.133.9.49", 7654), 5000);
+                client.connect(new InetSocketAddress(ServerIp.serverIp, 7654), 5000);
                 //向主线程发送what为0的message，代表连接成功
                 Message connect=handler.obtainMessage();
                 connect.what=0;
@@ -109,10 +110,10 @@ public class Control extends AppCompatActivity {
                                     Thread.sleep(100);
                                 }else if (sendFlag==false){ //假如松开
                                     if (f) {  //只有f为true时才向服务器发送松开的角度
-                                        ControlObj controlObj3 = new ControlObj(2002, "0");
+                                        ControlObj controlObj3 = new ControlObj(2002, "361");
                                         out.print(TranslateTojson(controlObj3));
                                         out.flush();
-                                        Thread.sleep(100);
+                                        Thread.sleep(200);
                                     }
                                     f=false;   //每次执行完松开的代码后，将f赋为false，防止松开后持续发送松开的角度
                                 }
@@ -149,7 +150,7 @@ public class Control extends AppCompatActivity {
         rockerView = findViewById(R.id.rockerView);
         textView=findViewById(R.id.text);
 
-        rockerView.setVisibility(View.INVISIBLE);
+        //rockerView.setVisibility(View.INVISIBLE);
 
         w = getWindowManager().getDefaultDisplay().getWidth();
         SurfaceView surface = findViewById(R.id.video);
