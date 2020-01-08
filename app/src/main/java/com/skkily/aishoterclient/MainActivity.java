@@ -21,6 +21,7 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.skkily.aishoterclient.AiList.UserInformationActivity;
 import com.skkily.aishoterclient.Control.Control;
 import com.skkily.aishoterclient.FaceCheck.FaceNetUtil;
 import com.skkily.aishoterclient.FaceCheck.LoadingActivity;
@@ -171,16 +172,32 @@ public class MainActivity extends AppCompatActivity implements QQLoginManager.QQ
                 try {
                     Socket client = new Socket(ServerIp.serverIp, 666);
                     PrintStream out = new PrintStream(client.getOutputStream());
-                    User user = new User(1,openid, "", "","");
+                    User user = new User(6,openid, "", "","");
                     out.println(TranslateTojson(user));
+                    BufferedReader msg = new BufferedReader(new InputStreamReader(client.getInputStream()));
+                    String str = msg.readLine();
                     out.close();
+                    Gson gson=new Gson();
+                    User users=gson.fromJson(str,User.class);
+                    if(users.getCode()==0) {
+                        SharedPreferences.Editor editor=getSharedPreferences("User",MODE_PRIVATE).edit();
+                        editor.putString("name",users.getUsername());
+                        editor.putString("id",users.getUserid());
+                        editor.putString("email",users.getEmail());
+                        editor.apply();
+                        Intent it = new Intent(MainActivity.this, AiListActivity.class);
+                        it.putExtra("User",users);
+                        startActivity(it);
+                    }else {
+                        Toast.makeText(MainActivity.this,"登录失败",Toast.LENGTH_LONG).show();
+                    }
                     client.close();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
         }.start();
-        Toast.makeText(MainActivity.this,"登录成功！",Toast.LENGTH_LONG).show();
+        //Toast.makeText(MainActivity.this,"登录成功！",Toast.LENGTH_LONG).show();
     }
 
     @Override
